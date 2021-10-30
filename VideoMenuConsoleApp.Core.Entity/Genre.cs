@@ -1,5 +1,4 @@
-﻿
-namespace VideoMenuConsoleApp
+﻿namespace VideoMenuConsoleApp.Core.Entity
 {
     public class Genre
     {
