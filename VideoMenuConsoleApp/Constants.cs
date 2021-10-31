@@ -62,5 +62,6 @@
         public const string FindAnyCustomerMatch = "Please enter anything to find any customer matches";
         public const string FindAnyGenreMatch =  "Please enter anything to find any genre matches";
         public const string FindAnyVideoMatch =  "Please enter anything to find any Video matches";
+        public const string GodDammit = "God dammit!!! Still not Enough?";
     }
 }

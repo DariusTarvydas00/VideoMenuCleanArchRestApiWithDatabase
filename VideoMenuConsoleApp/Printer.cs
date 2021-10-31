@@ -123,15 +123,27 @@ namespace VideoMenuConsoleApp
 
         void AddVideo()
         {
+            Video video = new Video();
             Console.WriteLine(Constants.EnterVideoName);
-            var title = Console.ReadLine();
+            video.Title = Console.ReadLine();
             Console.WriteLine(Constants.EnterVideoGenre);
-            var genre = Console.ReadLine();
+            video.Genre = new Genre(){Type = Console.ReadLine()};
             Console.WriteLine(Constants.EnterReleaseDate);
-            var releaseDate = DateTime.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
+            video.ReleaseDate = DateTime.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
             Console.WriteLine(Constants.EnterVideoStoryLine);
-            var storyLine = Console.ReadLine();
-            _videoService.NewVideo(title,releaseDate,new Genre(){Type = genre},storyLine);
+            video.StoryLine = Console.ReadLine();
+            _videoService.CreateNewVideo(video);
+        }
+
+        string answerOption()
+        {
+            var value = Console.ReadLine();
+            if (value.ToLower().Contains("yes"))
+            {
+                return "yes";
+            }
+
+            return "no";
         }
 
         void RemoveVideo()
@@ -139,8 +151,8 @@ namespace VideoMenuConsoleApp
             var count = 0;
             ShowVideoList:
             Console.WriteLine(Constants.ShowAllVideoList);
-            var answer = Console.ReadLine();
-            if (answer == "yes")
+            var answer = answerOption();
+            if (answerOption().Contains("yes"))
             {
                 ListAllVideos();
             }
@@ -167,6 +179,7 @@ namespace VideoMenuConsoleApp
 
         void ListAllVideos()
         {
+            
             foreach (var video in _videoService.GetAllVideos())
             {
                 Console.WriteLine(
@@ -442,12 +455,9 @@ namespace VideoMenuConsoleApp
 
         void AddGenre()
         {
+            Genre genre = new Genre();
             Console.WriteLine(Constants.EnterGenreType);
-            var genreType = Console.ReadLine();
-            Genre genre = new Genre()
-            {
-                Type = genreType
-            };
+            genre.Type =  Console.ReadLine();
             _genreService.CreateNewGenre(genre);
         }
 
@@ -605,22 +615,15 @@ namespace VideoMenuConsoleApp
         {
             Console.WriteLine(Constants.FindAnyGenreMatch);
             var find = Console.ReadLine();
-            List<Genre> result = new List<Genre>();
-            if (double.TryParse(find, out double value))
+            foreach (var genre in _genreService.GetAllGenre().FindAll(genre => genre.Id == (int.Parse(find))))
             {
-                foreach (var genre in _genreService.GetAllGenre().FindAll(genre => genre.Id == value)) result.Add(genre);
-            }
-
-            foreach (var genre in _genreService.GetAllGenre().FindAll(genre => genre.Type == find)) result.Add(genre);
-            foreach (var cust in result)
-            {
-                Console.WriteLine($"Id:{cust.Id} {cust.Type}");
+                Console.WriteLine($"Id:{genre.Id} {genre.Type}");
             }
         }
 
         void SearchAny()
         {
-            Console.WriteLine("God dammit!!! Still not Enough?");
+            Console.WriteLine(Constants.GodDammit);
         }
 
 

@@ -10,17 +10,27 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
         private List<Genre> _genres = new List<Genre>();
         public Genre Create(Genre genre)
         {
-            throw new System.NotImplementedException();
+            genre.Id = _genreId++;
+            _genres.Add(genre);
+            return genre;
         }
 
         public Genre ReadById(int id)
         {
-            throw new System.NotImplementedException();
+            foreach (var genre in _genres)
+            {
+                if (genre.Id == id)
+                {
+                    return genre;
+                }
+            }
+
+            return null;
         }
 
         public IEnumerable<Genre> ReadAll()
         {
-            throw new System.NotImplementedException();
+            return _genres;
         }
 
         public Genre Update(Genre genre)
