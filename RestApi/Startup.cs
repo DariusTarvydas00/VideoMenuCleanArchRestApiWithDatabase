@@ -1,14 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using VideoMenu.Infrastructure.Data;
+using VideoMenu.Infrastructure.Data.Repositories;
 using VideoMenuConsoleApp.Core.ApplicationService;
 using VideoMenuConsoleApp.Core.ApplicationService.Services;
 using VideoMenuConsoleApp.Core.DomainService;
-using VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories;
 
 namespace RestApi
 {
@@ -24,6 +26,8 @@ namespace RestApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<VideoMenuAppContext>(
+                opt => opt.UseInMemoryDatabase("DB"));
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IVideoRepository, VideoRepository>();
