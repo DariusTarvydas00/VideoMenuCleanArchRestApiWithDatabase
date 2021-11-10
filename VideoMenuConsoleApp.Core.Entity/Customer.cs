@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VideoMenuConsoleApp.Core.Entity
 {
@@ -11,5 +12,6 @@ namespace VideoMenuConsoleApp.Core.Entity
         public string Email { get; set; }
         public DateTime Birthday { get; set; }
         public string Address { get; set; }
+        public List<Video> Videos { get; set; }
     }
 }

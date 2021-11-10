@@ -21,6 +21,12 @@ namespace RestApi.Controllers
         {
             return _videoService.GetAllVideos();
         }
-        
+
+        [HttpPost]
+        public ActionResult<Video> Post([FromBody] Video video)
+        {
+            return _videoService.CreateNewVideo(video);
+        }
+
     }
 }

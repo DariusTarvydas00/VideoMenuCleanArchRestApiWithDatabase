@@ -9,5 +9,6 @@ namespace VideoMenuConsoleApp.Core.Entity
         public DateTime ReleaseDate { get; set; }
         public string StoryLine { get; set; }
         public Genre Genre { get; set; }
+        public Customer Customer { get; set; }
     }
 }

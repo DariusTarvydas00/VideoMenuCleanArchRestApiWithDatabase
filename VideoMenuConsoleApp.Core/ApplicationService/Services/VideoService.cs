@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using VideoMenuConsoleApp.Core.DomainService;
 using VideoMenuConsoleApp.Core.Entity;
@@ -8,10 +9,12 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
 {
     public class VideoService: IVideoService
     {
-        private IVideoRepository _videoRepository;
+        private readonly IVideoRepository _videoRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-        public VideoService(IVideoRepository videoRepository)
+        public VideoService(IVideoRepository videoRepository, ICustomerRepository customerRepository)
         {
+            _customerRepository = customerRepository;
             _videoRepository = videoRepository;
         }
 
@@ -22,13 +25,23 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
                 Title = title,
                 ReleaseDate = releaseDate,
                 Genre = genre,
-                StoryLine = storyLine,
+                StoryLine = storyLine
             };
             return video;
         }
 
         public Video CreateNewVideo(Video video)
         {
+            if (video.Customer == null || video.Customer.Id <= 0)
+            {
+                throw new InvalidDataException("Error");
+            }
+
+            if (_customerRepository.ReadById(video.Customer.Id) == null)
+            {
+                throw new InvalidDataException("Another Error");
+            }
+
             return _videoRepository.Create(video);
         }
 

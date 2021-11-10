@@ -17,7 +17,8 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
                 Title = "Star Wars",
                 ReleaseDate = new DateTime(1991, 08, 02),
                 Genre = new Genre() {Id = 1, Type = "Fantasy"},
-                StoryLine = "Bing Pow Bum Bum"
+                StoryLine = "Bing Pow Bum Bum",
+                Customer = new Customer(){Id = 1}
             };
             Video video2 = new Video()
             {
@@ -25,7 +26,8 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
                 Title = "Liar Liar",
                 ReleaseDate = new DateTime(1988, 02, 24),
                 Genre = new Genre() {Id = 1, Type = "Comedy"},
-                StoryLine = "Ha Ha Ha Ha"
+                StoryLine = "Ha Ha Ha Ha",
+                Customer = new Customer(){Id = 2}
             };
             FakeDB.Videos.Add(video1);
             FakeDB.Videos.Add(video2);

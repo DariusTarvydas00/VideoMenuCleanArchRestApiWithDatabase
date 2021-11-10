@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using VideoMenuConsoleApp.Core.DomainService;
 using VideoMenuConsoleApp.Core.Entity;
 
@@ -42,15 +43,19 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
 
         public Customer ReadById(int id)
         {
-            foreach (var customer in FakeDB.Customers)
+            //This select is creating new customer in memory to avoid showing all customers after searching the specific one,
+            //Its clone customer
+            //As well as because this new list is read only, this new customer cant change database anymore
+            return FakeDB.Customers.Select(customer => new Customer()
             {
-                if (customer.Id == id)
-                {
-                    return customer;
-                }
-            }
-
-            return null;
+                Id = customer.Id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Address = customer.Address,
+                Birthday = customer.Birthday,
+                PhoneNumber = customer.PhoneNumber,
+                Email = customer.Email,
+            }).FirstOrDefault(customer => customer.Id == id);
         }
 
         public IEnumerable<Customer> ReadAll()

@@ -8,11 +8,13 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
 {
     public class CustomerService: ICustomerService
     {
-        readonly ICustomerRepository _customerRepo;
+        private readonly ICustomerRepository _customerRepo;
+        private readonly IVideoRepository _videoRepository;
 
-        public CustomerService(ICustomerRepository customerRepository)
+        public CustomerService(ICustomerRepository customerRepository, IVideoRepository videoRepository)
         {
             _customerRepo = customerRepository;
+            _videoRepository = videoRepository;
         }
 
         public Customer NewCustomer(string firstName, string lastName, int phoneNumber, string emailAddress, DateTime dateOfBirth, string address)
@@ -67,6 +69,13 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
             var queryContinued = list.Where(customer => customer.FirstName.Equals(name));
             queryContinued.OrderBy(customer => customer.FirstName);
             return queryContinued.ToList();
+        }
+
+        public Customer FindCustomerByIdIncludeOrders(int id)
+        {
+            var customer = _customerRepo.ReadById(id);
+            customer.Videos = _videoRepository.ReadAll().Where(video => video.Customer.Id == id).ToList();
+            return customer;
         }
     }
 }
