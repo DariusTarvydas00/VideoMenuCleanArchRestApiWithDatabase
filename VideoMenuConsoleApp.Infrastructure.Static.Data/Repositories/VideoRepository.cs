@@ -7,7 +7,7 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
     public class VideoRepository: IVideoRepository
     {
         private int _videoId = 1;
-        private List<Video> _videos = new List<Video>();
+        private readonly List<Video> _videos = new List<Video>();
         
         public Video Create(Video video)
         {

@@ -10,17 +10,17 @@ namespace RestApi.Controllers
     
     public class CustomerController : ControllerBase
     {
-        private readonly ICustomerService _CustomerService;
+        private readonly ICustomerService _customerService;
 
         public CustomerController(ICustomerService customerService)
         {
-            _CustomerService = customerService;
+            _customerService = customerService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Customer>> Get()
         {
-            return _CustomerService.GetAllCustomers();
+            return _customerService.GetAllCustomers();
         }
     }
 }

@@ -9,17 +9,17 @@ namespace RestApi.Controllers
     [ApiController]
     public class VideoController : Controller
     {
-        private readonly IVideoService _VideoService;
+        private readonly IVideoService _videoService;
 
-        public VideoController(IVideoService VideoService)
+        public VideoController(IVideoService videoService)
         {
-            _VideoService = VideoService;
+            _videoService = videoService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Video>> Get()
         {
-            return _VideoService.GetAllVideos();
+            return _videoService.GetAllVideos();
         }
         
     }

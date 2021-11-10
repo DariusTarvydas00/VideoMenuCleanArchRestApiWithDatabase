@@ -9,17 +9,17 @@ namespace RestApi.Controllers
     [ApiController]
     public class GenreController : Controller
     {
-            private readonly IGenreService _GenreService;
+            private readonly IGenreService _genreService;
 
-            public GenreController(IGenreService GenreService)
+            public GenreController(IGenreService genreService)
             {
-                _GenreService = GenreService;
+                _genreService = genreService;
             }
 
             [HttpGet]
             public ActionResult<IEnumerable<Genre>> Get()
             {
-                return _GenreService.GetAllGenre();
+                return _genreService.GetAllGenre();
             }
         
     }

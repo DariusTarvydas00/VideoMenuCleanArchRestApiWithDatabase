@@ -8,7 +8,7 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
     public class CustomerRepository: ICustomerRepository
     {
         private int _customerId = 1;
-        private List<Customer> _customers = new List<Customer>();
+        private readonly List<Customer> _customers = new List<Customer>();
         
         public Customer Create(Customer customer)
         {

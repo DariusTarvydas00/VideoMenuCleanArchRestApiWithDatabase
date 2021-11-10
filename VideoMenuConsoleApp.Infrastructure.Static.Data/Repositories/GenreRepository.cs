@@ -7,7 +7,7 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
     public class GenreRepository: IGenreRepository
     {
         private int _genreId = 1;
-        private List<Genre> _genres = new List<Genre>();
+        private readonly List<Genre> _genres = new List<Genre>();
         public Genre Create(Genre genre)
         {
             genre.Id = _genreId++;
