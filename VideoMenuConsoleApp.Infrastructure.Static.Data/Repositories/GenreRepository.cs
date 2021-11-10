@@ -6,18 +6,34 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
 {
     public class GenreRepository: IGenreRepository
     {
-        private int _genreId = 1;
-        private readonly List<Genre> _genres = new List<Genre>();
+
+        public GenreRepository()
+        {
+            if (FakeDB.Genres.Count >= 1) return;
+            Genre gen1 = new Genre()
+            {
+                Id = FakeDB.genreId++,
+                Type = "Horror"
+            };
+            Genre gen2 = new Genre()
+            {
+                Id = FakeDB.genreId++,
+                Type = "Documentary"
+            };
+            FakeDB.Genres.Add(gen1);
+            FakeDB.Genres.Add(gen2);
+        }
+
         public Genre Create(Genre genre)
         {
-            genre.Id = _genreId++;
-            _genres.Add(genre);
+            genre.Id = FakeDB.genreId++;
+            FakeDB.Genres.Add(genre);
             return genre;
         }
 
         public Genre ReadById(int id)
         {
-            foreach (var genre in _genres)
+            foreach (var genre in FakeDB.Genres)
             {
                 if (genre.Id == id)
                 {
@@ -30,7 +46,7 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
 
         public IEnumerable<Genre> ReadAll()
         {
-            return _genres;
+            return FakeDB.Genres;
         }
 
         public Genre Update(Genre genre)
@@ -43,7 +59,7 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
             var genreFound = this.ReadById(id);
             if (genreFound != null)
             {
-                _genres.Remove(genreFound);
+                FakeDB.Genres.Remove(genreFound);
                 return genreFound;
             }
 

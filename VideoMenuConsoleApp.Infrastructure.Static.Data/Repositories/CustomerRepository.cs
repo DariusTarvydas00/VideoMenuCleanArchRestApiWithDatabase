@@ -7,19 +7,42 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
 {
     public class CustomerRepository: ICustomerRepository
     {
-        private int _customerId = 1;
-        private readonly List<Customer> _customers = new List<Customer>();
-        
+
+        public CustomerRepository()
+        {
+            if (FakeDB.Customers.Count >= 1) return;
+            Customer cust1 = new Customer()
+            {
+                Id = FakeDB.customerId++,
+                FirstName = "Darius",
+                LastName = "Tarvydas",
+                Birthday = new DateTime(1990, 05, 06),
+                Email = "tarvydasdarius@gmail.com",
+                PhoneNumber = 86967868
+            };
+            Customer cust2 = new Customer()
+            {
+                Id = FakeDB.customerId++,
+                FirstName = "Vytenis",
+                LastName = "Urbonas",
+                Birthday = new DateTime(1991, 09, 30),
+                Email = "vytenisurbonas@gmail.com",
+                PhoneNumber = 86967869
+            };
+            FakeDB.Customers.Add(cust1);
+            FakeDB.Customers.Add(cust2);
+        }
+
         public Customer Create(Customer customer)
         {
-            customer.Id = _customerId++;
-            _customers.Add(customer);
+            customer.Id = FakeDB.customerId++;
+            FakeDB.Customers.Add(customer);
             return customer;
         }
 
         public Customer ReadById(int id)
         {
-            foreach (var customer in _customers)
+            foreach (var customer in FakeDB.Customers)
             {
                 if (customer.Id == id)
                 {
@@ -32,7 +55,7 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
 
         public IEnumerable<Customer> ReadAll()
         {
-            return _customers;
+            return FakeDB.Customers;
         }
 
         public Customer Update(Customer customerUpdate)
@@ -57,7 +80,7 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
             var customerFound = this.ReadById(id);
             if (customerFound != null)
             {
-                _customers.Remove(customerFound);
+                FakeDB.Customers.Remove(customerFound);
                 return customerFound;
             }
 

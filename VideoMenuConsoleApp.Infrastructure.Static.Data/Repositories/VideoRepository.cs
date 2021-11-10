@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using VideoMenuConsoleApp.Core.DomainService;
 using VideoMenuConsoleApp.Core.Entity;
 
@@ -6,19 +7,40 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
 {
     public class VideoRepository: IVideoRepository
     {
-        private int _videoId = 1;
-        private readonly List<Video> _videos = new List<Video>();
-        
+
+        public VideoRepository()
+        {
+            if (FakeDB.Videos.Count >= 1) return;
+            Video video1 = new Video()
+            {
+                Id = FakeDB.videoId++,
+                Title = "Star Wars",
+                ReleaseDate = new DateTime(1991, 08, 02),
+                Genre = new Genre() {Id = 1, Type = "Fantasy"},
+                StoryLine = "Bing Pow Bum Bum"
+            };
+            Video video2 = new Video()
+            {
+                Id = FakeDB.videoId++,
+                Title = "Liar Liar",
+                ReleaseDate = new DateTime(1988, 02, 24),
+                Genre = new Genre() {Id = 1, Type = "Comedy"},
+                StoryLine = "Ha Ha Ha Ha"
+            };
+            FakeDB.Videos.Add(video1);
+            FakeDB.Videos.Add(video2);
+        }
+
         public Video Create(Video video)
         {
-            video.Id = _videoId++;
-            _videos.Add(video);
+            video.Id = FakeDB.videoId++;
+            FakeDB.Videos.Add(video);
             return video;
         }
 
         public Video ReadById(int id)
         {
-            foreach (var video in _videos)
+            foreach (var video in FakeDB.Videos)
             {
                 if (video.Id == id)
                 {
@@ -31,7 +53,7 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
 
         public IEnumerable<Video> ReadAll()
         {
-            return _videos;
+            return FakeDB.Videos;
         }
 
         public Video Update(Video videoUpdate)
@@ -54,7 +76,7 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
             var videoFound = this.ReadById(id);
             if (videoFound != null)
             {
-                _videos.Remove(videoFound);
+                FakeDB.Videos.Remove(videoFound);
                 return videoFound;
             }
 
