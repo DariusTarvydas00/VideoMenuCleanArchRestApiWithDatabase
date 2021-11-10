@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoMenuConsoleApp", "VideoMenuConsoleApp\VideoMenuConsoleApp.csproj", "{775A5112-E80C-482A-9B49-32E5CF455384}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoMenuConsoleApp.Core.Entity", "VideoMenuConsoleApp.Core.Entity\VideoMenuConsoleApp.Core.Entity.csproj", "{1442D486-A883-45D9-AC38-E66ADE041003}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoMenuConsoleApp.Core", "VideoMenuConsoleApp.Core\VideoMenuConsoleApp.Core.csproj", "{70BB8C66-EC89-429E-9440-C38EA4787CE2}"
@@ -16,16 +14,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoMenuConsoleApp.Infrast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApi", "RestApi\RestApi.csproj", "{58809A47-8398-4B81-81C8-9DDF72612E42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoMenu.Infrastructure.Data", "VideoMenu.Infrastructure.Data\VideoMenu.Infrastructure.Data.csproj", "{FE79BB7C-6F13-4A03-ACC6-A9713D9C5864}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{775A5112-E80C-482A-9B49-32E5CF455384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{775A5112-E80C-482A-9B49-32E5CF455384}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{775A5112-E80C-482A-9B49-32E5CF455384}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{775A5112-E80C-482A-9B49-32E5CF455384}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1442D486-A883-45D9-AC38-E66ADE041003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1442D486-A883-45D9-AC38-E66ADE041003}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1442D486-A883-45D9-AC38-E66ADE041003}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -42,12 +38,16 @@ Global
 		{58809A47-8398-4B81-81C8-9DDF72612E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58809A47-8398-4B81-81C8-9DDF72612E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58809A47-8398-4B81-81C8-9DDF72612E42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE79BB7C-6F13-4A03-ACC6-A9713D9C5864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE79BB7C-6F13-4A03-ACC6-A9713D9C5864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE79BB7C-6F13-4A03-ACC6-A9713D9C5864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE79BB7C-6F13-4A03-ACC6-A9713D9C5864}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{70BB8C66-EC89-429E-9440-C38EA4787CE2} = {16E92F96-358A-46AC-AB7A-9C2B0CAAD21F}
 		{1442D486-A883-45D9-AC38-E66ADE041003} = {16E92F96-358A-46AC-AB7A-9C2B0CAAD21F}
-		{775A5112-E80C-482A-9B49-32E5CF455384} = {486A23ED-F3C5-4F47-821A-BF4854ADB125}
 		{E786B9BC-33A7-4B3D-84BD-CBC1D456DF2C} = {B2AA5A06-E333-477E-A36A-89732A695200}
 		{58809A47-8398-4B81-81C8-9DDF72612E42} = {486A23ED-F3C5-4F47-821A-BF4854ADB125}
+		{FE79BB7C-6F13-4A03-ACC6-A9713D9C5864} = {B2AA5A06-E333-477E-A36A-89732A695200}
 	EndGlobalSection
 EndGlobal
