@@ -73,9 +73,7 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
 
         public Customer FindCustomerByIdIncludeOrders(int id)
         {
-            var customer = _customerRepo.ReadById(id);
-            customer.Videos = _videoRepository.ReadAll().Where(video => video.Customer.Id == id).ToList();
-            return customer;
+            return  _customerRepo.ReadByIdIncludeVideos(id);
         }
     }
 }

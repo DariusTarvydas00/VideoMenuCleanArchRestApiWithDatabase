@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using VideoMenuConsoleApp.Core.DomainService;
 using VideoMenuConsoleApp.Core.Entity;
 
@@ -25,6 +26,11 @@ namespace VideoMenu.Infrastructure.Data.Repositories
         {
             return _ctx.Customers.FirstOrDefault(customer => customer.Id == id);
         }
+        
+        public Customer ReadByIdIncludeVideos(int id)
+        {
+            return _ctx.Customers.Where(customer => customer.Id == id).Include(customer => customer.Videos).FirstOrDefault();
+        }
 
         public IEnumerable<Customer> ReadAll()
         {
@@ -38,7 +44,10 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Customer Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var cust = _ctx.Remove(new Customer{Id = id}).Entity;
+            _ctx.SaveChanges();
+            return cust;
         }
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using VideoMenuConsoleApp.Core.DomainService;
 using VideoMenuConsoleApp.Core.Entity;
 
@@ -38,7 +39,8 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Genre Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var gen = _ctx.Remove<Genre>( new Genre {Id = id}).Entity;
+            return gen;
         }
     }
 }

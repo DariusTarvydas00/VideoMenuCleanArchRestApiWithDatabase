@@ -10,5 +10,6 @@ namespace VideoMenuConsoleApp.Core.DomainService
         IEnumerable<Customer> ReadAll();
         Customer Update(Customer customerUpdate);
         Customer Delete(int id);
+        Customer ReadByIdIncludeVideos(int id);
     }
 }

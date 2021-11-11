@@ -91,5 +91,10 @@ namespace VideoMenuConsoleApp.Infrastructure.Static.Data.Repositories
 
             return null;
         }
+
+        public Customer ReadByIdIncludeVideos(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

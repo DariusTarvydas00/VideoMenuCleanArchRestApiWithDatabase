@@ -38,7 +38,8 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Video Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var vid = _ctx.Remove(new Video {Id = id}).Entity;
+            return vid;
         }
     }
 }
