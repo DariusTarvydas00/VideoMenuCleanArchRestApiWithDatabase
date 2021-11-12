@@ -10,6 +10,13 @@ namespace VideoMenu.Infrastructure.Data
             
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Video>().HasOne(video => video.Customer).WithMany(customers => customers.Videos)
+                .OnDelete(DeleteBehavior.SetNull);
+            base.OnModelCreating(modelBuilder);
+        }
+
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Genre> Genres { get; set; }
