@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using VideoMenuConsoleApp.Core.DomainService;
 using VideoMenuConsoleApp.Core.Entity;
 
@@ -31,7 +30,23 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public IEnumerable<Genre> ReadAll()
         {
-            return _ctx.Genres;
+            //return _ctx.Genres;
+            // var list = new List<Genre>();
+            // var entityList = _ctx.Genres.ToList();
+            // foreach (var entity in entityList)
+            // {
+            //     list.Add(new Genre()
+            //     {
+            //         Id = entity.Id
+            //     });
+            // }
+            //
+            // return list;
+            return _ctx.Genres.Select(genre => new Genre()
+            {
+                Id = genre.Id,
+                Type = genre.Type
+            }).ToList();
         }
 
         public Genre Update(Genre genre)

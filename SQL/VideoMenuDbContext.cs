@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VideoMenuConsoleApp.Core.Entity;
 
-namespace VideoMenu.Infrastructure.Data
+namespace SQL
 {
-    public class VideoMenuAppContext : DbContext
+    public class VideoMenuDbContext : DbContext
     {
-        public VideoMenuAppContext(DbContextOptions<VideoMenuAppContext>opt): base(opt)
+        public VideoMenuDbContext(DbContextOptions<DbContext> opt) : base(opt)
         {
-            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,7 +20,5 @@ namespace VideoMenu.Infrastructure.Data
         public DbSet<Customer> Customers { get; set; } //Customer should be used as CustomerEntity in EF core project not Core blueprint
         public DbSet<Video> Videos { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        
-        
     }
 }
