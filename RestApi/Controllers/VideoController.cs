@@ -49,26 +49,26 @@ namespace RestApi.Controllers
         }
 
         [HttpPut]
-        public ActionResult<Video> Put(int id, [FromBody] Video Video)
+        public ActionResult<Video> Put(int id, [FromBody] Video video)
         {
-            if (id < 1 || id != Video.Id)
+            if (id < 1 || id != video.Id)
             {
                 return BadRequest("Something went wrong");
             }
 
-            return Ok(_videoService.UpdateVideo(Video));
+            return Ok(_videoService.UpdateVideo(video));
         }
 
         [HttpDelete]
         public ActionResult<Genre> Delete(int id)
         {
-            var Genre = _videoService.DeleteVideo(id);
-            if (Genre == null)
+            var genre = _videoService.DeleteVideo(id);
+            if (genre == null)
             {
-                return StatusCode(404, "Did not found any Genre");
+                return StatusCode(404, "Did not found any Video");
             }
 
-            return Ok("Genre was deleted");
+            return Ok("Video was deleted");
         }
 
     }
