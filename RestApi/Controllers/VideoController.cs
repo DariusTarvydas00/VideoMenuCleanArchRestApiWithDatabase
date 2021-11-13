@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using RestApi.DTOs.Videos;
 using VideoMenuConsoleApp.Core.ApplicationService;
 using VideoMenuConsoleApp.Core.Entity;
 
@@ -35,9 +36,15 @@ namespace RestApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Video> Get(int id)
         {
+            var video = _videoService.FindVideoById(id);
             try
             {
-                return Ok(_videoService.FindVideoById(id));
+                return Ok(new GetVideoByIdDto()
+                {
+                    Title = video.Title,
+                    StoryLine = video.StoryLine,
+                    DateTime = video.ReleaseDate
+                });
             }
             catch (Exception e)
             {
