@@ -17,10 +17,9 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Customer Create(Customer customer)
         {
-            var changeTracker = _ctx.ChangeTracker.Entries();
-            var cust = _ctx.Customers.Add(customer).Entity;
+            _ctx.Attach(customer).State = EntityState.Added; 
             _ctx.SaveChanges();
-            return cust;
+            return customer;
         }
 
         public Customer ReadById(int id)
@@ -40,7 +39,10 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Customer Update(Customer customerUpdate)
         {
-            throw new System.NotImplementedException();
+            _ctx.Attach(customerUpdate).State = EntityState.Modified; 
+            _ctx.Entry(customerUpdate).Reference<Customer>(cst => cst).IsModified = true;
+            _ctx.SaveChanges();
+            return customerUpdate;
         }
 
         public Customer Delete(int id)

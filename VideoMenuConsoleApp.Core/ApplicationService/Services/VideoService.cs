@@ -77,5 +77,10 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
             queryContinued.OrderBy(video => video.Title);
             return queryContinued.ToList();
         }
+
+        public List<Video> GetFilteredOrders(Filter filter)
+        {
+            return _videoRepository.ReadAll(filter).ToList();
+        }
     }
 }

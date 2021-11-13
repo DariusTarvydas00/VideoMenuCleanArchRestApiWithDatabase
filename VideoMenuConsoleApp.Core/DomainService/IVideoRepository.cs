@@ -7,7 +7,7 @@ namespace VideoMenuConsoleApp.Core.DomainService
     {
         Video Create(Video video);
         Video ReadById(int id);
-        IEnumerable<Video> ReadAll();
+        IEnumerable<Video> ReadAll(Filter filter = null);
         Video Update(Video videoUpdate);
         Video Delete(int id);
     }

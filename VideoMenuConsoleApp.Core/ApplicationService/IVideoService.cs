@@ -13,5 +13,6 @@ namespace VideoMenuConsoleApp.Core.ApplicationService
         Video FindVideoById(int id);
         List<Video> GetAllVideos();
         List<Video> GetAllVideosByTitle(string name);
+        List<Video> GetFilteredOrders(Filter filter);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using VideoMenuConsoleApp.Core.DomainService;
 using VideoMenuConsoleApp.Core.Entity;
@@ -17,10 +19,9 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Genre Create(Genre genre)
         {
-            var changeTracker = _ctx.ChangeTracker.Entries();
-            var gen = _ctx.Genres.Add(genre).Entity;
+            _ctx.Attach(genre).State = EntityState.Added;
             _ctx.SaveChanges();
-            return gen;
+            return genre;
         }
 
         public Genre ReadById(int id)
@@ -35,7 +36,10 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Genre Update(Genre genre)
         {
-            throw new System.NotImplementedException();
+            _ctx.Attach(genre).State = EntityState.Modified; 
+            _ctx.Entry(genre).Reference<Genre>(genre1 => genre1).IsModified = true;
+            _ctx.SaveChanges();
+            return genre;
         }
 
         public Genre Delete(int id)

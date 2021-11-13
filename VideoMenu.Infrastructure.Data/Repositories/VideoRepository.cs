@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using VideoMenuConsoleApp.Core.DomainService;
 using VideoMenuConsoleApp.Core.Entity;
 
@@ -16,15 +17,9 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Video Create(Video video)
         {
-            var changeTracker = _ctx.ChangeTracker.Entries();
-            if (video.Customer != null)
-            {
-                _ctx.Attach(video.Customer);
-            }
-
-            var vid = _ctx.Videos.Add(video).Entity;
+            _ctx.Attach(video).State = EntityState.Added;
             _ctx.SaveChanges();
-            return vid;
+            return video;
         }
 
         public Video ReadById(int id)
@@ -32,14 +27,36 @@ namespace VideoMenu.Infrastructure.Data.Repositories
             return _ctx.Videos.FirstOrDefault(video => video.Id == id);
         }
 
-        public IEnumerable<Video> ReadAll()
+        public IEnumerable<Video> ReadAll(Filter filter)
         {
-            return _ctx.Videos;
+            if (filter == null)
+            {
+                return _ctx.Videos;
+            }
+
+            return _ctx.Videos.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage);
         }
 
         public Video Update(Video videoUpdate)
         {
-            throw new System.NotImplementedException();
+            // if (videoUpdate.Customer != null && _ctx.ChangeTracker.Entries<Customer>()
+            //     .FirstOrDefault(entry => entry.Entity.Id == videoUpdate.Customer.Id) == null)
+            // {
+            //     _ctx.Attach(videoUpdate.Customer);
+            // }
+            // else
+            // {
+            //     _ctx.Entry(videoUpdate).Reference(o => o.Customer).IsModified = true;
+            // }
+            //
+            // var updated = _ctx.Update(videoUpdate).Entity;
+            //     _ctx.SaveChanges();
+            //     return updated;
+            _ctx.Attach(videoUpdate).State = EntityState.Modified;
+            _ctx.Entry(videoUpdate).Reference(o => o.Customer).IsModified = true;
+            _ctx.SaveChanges();
+            return videoUpdate;
+
         }
 
         public Video Delete(int id)
