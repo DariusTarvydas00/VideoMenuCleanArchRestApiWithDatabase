@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using VideoMenu.Infrastructure.Data;
@@ -29,7 +30,11 @@ namespace RestApi
         {
             // services.AddDbContext<VideoMenuAppContext>(
             //     opt => opt.UseInMemoryDatabase("DB"));
-            services.AddDbContext<VideoMenuAppContext>(builder => builder.UseSqlite("Data Source=DatabaseApp.db"));
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+            });
+            services.AddDbContext<VideoMenuAppContext>(builder => builder.UseLoggerFactory(loggerFactory).UseSqlite("Data Source=DatabaseApp.db"));
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IVideoRepository, VideoRepository>();
@@ -44,14 +49,14 @@ namespace RestApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, VideoMenuAppContext ctx)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
-                    var ctx = scope.ServiceProvider.GetService<VideoMenuAppContext>();
+                    scope.ServiceProvider.GetService<VideoMenuAppContext>();
                     DbInitializer.SeedDb(ctx);
                 }
 

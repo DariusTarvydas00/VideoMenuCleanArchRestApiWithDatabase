@@ -15,9 +15,10 @@ namespace VideoMenu.Infrastructure.Data
             modelBuilder.Entity<Video>().HasOne(video => video.Customer).WithMany(customers => customers.Videos)
                 .OnDelete(DeleteBehavior.SetNull);
             base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<Customer>().HasData(new CustomerEntity() {Id = 1});
         }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Customer> Customers { get; set; } //Customer should be used as CustomerEntity in EF core project not Core blueprint
         public DbSet<Video> Videos { get; set; }
         public DbSet<Genre> Genres { get; set; }
         
