@@ -10,5 +10,6 @@ namespace VideoMenuConsoleApp.Core.DomainService
         IEnumerable<Video> ReadAll(Filter filter = null);
         Video Update(Video videoUpdate);
         Video Delete(int id);
+        int Count();
     }
 }

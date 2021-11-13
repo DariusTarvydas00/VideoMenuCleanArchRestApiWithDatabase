@@ -20,8 +20,16 @@ namespace RestApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Video>> Get([FromQuery] Filter filter)
         {
-            return Ok(_videoService.GetFilteredOrders(filter));
-            return _videoService.GetAllVideos();
+            try
+            {
+                return Ok(_videoService.GetFilteredOrders(filter));
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Something went wrong");
+            }
+            // return Ok(_videoService.GetFilteredOrders(filter));
+            // return _videoService.GetAllVideos();
         }
 
         [HttpGet("{id}")]

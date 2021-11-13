@@ -80,6 +80,16 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
 
         public List<Video> GetFilteredOrders(Filter filter)
         {
+            if (filter.CurrentPage < 0 || filter.ItemsPerPage < 0)
+            {
+                throw new InvalidDataException("C and I zero");
+            }
+
+            if ((filter.CurrentPage - 1 * filter.ItemsPerPage) >= _videoRepository.Count())
+            {
+                throw new InvalidDataException("index bound");
+            }
+
             return _videoRepository.ReadAll(filter).ToList();
         }
     }

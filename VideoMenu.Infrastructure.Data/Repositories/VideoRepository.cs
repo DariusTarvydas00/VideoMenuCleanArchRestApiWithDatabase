@@ -64,5 +64,10 @@ namespace VideoMenu.Infrastructure.Data.Repositories
             var vid = _ctx.Remove(new Video {Id = id}).Entity;
             return vid;
         }
+
+        public int Count()
+        {
+            return _ctx.Videos.Count();
+        }
     }
 }
