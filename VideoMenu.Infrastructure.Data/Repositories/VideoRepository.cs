@@ -35,7 +35,8 @@ namespace VideoMenu.Infrastructure.Data.Repositories
                 return _ctx.Videos;
             }
 
-            return _ctx.Videos.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage).Where(video => video.ReleaseDate < DateTime.Now);
+            return _ctx.Videos.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage).Where(video => video.ReleaseDate < DateTime.Now)
+                .OrderBy(video => video.ReleaseDate);
         }
 
         public Video Update(Video videoUpdate)
