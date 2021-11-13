@@ -17,6 +17,7 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Genre Create(Genre genre)
         {
+            var changeTracker = _ctx.ChangeTracker.Entries();
             var gen = _ctx.Genres.Add(genre).Entity;
             _ctx.SaveChanges();
             return gen;

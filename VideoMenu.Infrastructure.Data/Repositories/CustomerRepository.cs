@@ -17,6 +17,7 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Customer Create(Customer customer)
         {
+            var changeTracker = _ctx.ChangeTracker.Entries();
             var cust = _ctx.Customers.Add(customer).Entity;
             _ctx.SaveChanges();
             return cust;

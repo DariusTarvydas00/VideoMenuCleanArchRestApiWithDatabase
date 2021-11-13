@@ -37,10 +37,10 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
                 throw new InvalidDataException("Error");
             }
 
-            if (_customerRepository.ReadById(video.Customer.Id) == null)
-            {
-                throw new InvalidDataException("Another Error");
-            }
+            // if (_customerRepository.ReadById(video.Customer.Id) == null)
+            // {
+            //     throw new InvalidDataException("Another Error");
+            // }
 
             return _videoRepository.Create(video);
         }

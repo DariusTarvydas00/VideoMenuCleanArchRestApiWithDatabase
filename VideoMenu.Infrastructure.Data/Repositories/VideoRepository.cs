@@ -16,6 +16,12 @@ namespace VideoMenu.Infrastructure.Data.Repositories
 
         public Video Create(Video video)
         {
+            var changeTracker = _ctx.ChangeTracker.Entries();
+            if (video.Customer != null)
+            {
+                _ctx.Attach(video.Customer);
+            }
+
             var vid = _ctx.Videos.Add(video).Entity;
             _ctx.SaveChanges();
             return vid;
