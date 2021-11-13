@@ -6,6 +6,13 @@ namespace SQL.Repositories
 {
     public class CustomerRepository: ICustomerRepository
     {
+        
+        private readonly VideoMenuDbContext _ctx;
+
+        public CustomerRepository(VideoMenuDbContext ctx)
+        {
+            _ctx = ctx;
+        }
         public Customer Create(Customer customer)
         {
             throw new System.NotImplementedException();

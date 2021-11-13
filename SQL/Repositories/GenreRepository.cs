@@ -6,6 +6,12 @@ namespace SQL.Repositories
 {
     public class GenreRepository: IGenreRepository
     {
+        private readonly VideoMenuDbContext _ctx;
+
+        public GenreRepository(VideoMenuDbContext ctx)
+        {
+            _ctx = ctx;
+        }
         public Genre Create(Genre genre)
         {
             throw new System.NotImplementedException();

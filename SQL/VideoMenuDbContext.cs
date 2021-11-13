@@ -5,7 +5,7 @@ namespace SQL
 {
     public class VideoMenuDbContext : DbContext
     {
-        public VideoMenuDbContext(DbContextOptions<DbContext> opt) : base(opt)
+        public VideoMenuDbContext(DbContextOptions<VideoMenuDbContext> opt) : base(opt)
         {
         }
 
@@ -13,6 +13,7 @@ namespace SQL
         {
             modelBuilder.Entity<Video>().HasOne(video => video.Customer).WithMany(customers => customers.Videos)
                 .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Customer>().HasOne(video => video.Videos).WithMany();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Genre>().HasData(new Genre() {Id = 1, Type = "asd"});
         }

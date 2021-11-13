@@ -60,6 +60,9 @@ namespace RestApi
                     DbInitializer.SeedDb(ctx);
                 }
 
+                ctx.Database.EnsureDeleted();
+                ctx.Database.EnsureCreated();
+
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestApi v1"));
             }

@@ -13,5 +13,6 @@ namespace VideoMenuConsoleApp.Core.Entity
         public DateTime Birthday { get; set; }
         public string Address { get; set; }
         public List<Video> Videos { get; set; }
+        public int VideosId { get; set; }
     }
 }

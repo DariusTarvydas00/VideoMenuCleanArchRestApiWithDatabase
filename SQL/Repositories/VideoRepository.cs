@@ -6,6 +6,13 @@ namespace SQL.Repositories
 {
     public class VideoRepository: IVideoRepository
     {
+        
+        private readonly VideoMenuDbContext _ctx;
+
+        public VideoRepository(VideoMenuDbContext ctx)
+        {
+            _ctx = ctx;
+        }
         public Video Create(Video video)
         {
             throw new System.NotImplementedException();
