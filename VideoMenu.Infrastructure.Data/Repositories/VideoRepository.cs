@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using VideoMenuConsoleApp.Core.DomainService;
@@ -34,7 +35,7 @@ namespace VideoMenu.Infrastructure.Data.Repositories
                 return _ctx.Videos;
             }
 
-            return _ctx.Videos.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage);
+            return _ctx.Videos.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage).Where(video => video.ReleaseDate < DateTime.Now);
         }
 
         public Video Update(Video videoUpdate)
