@@ -19,6 +19,7 @@ namespace SQL.Repositories
         {
             var entity = _ctx.Customers.Add(new CustomerEntity()
             {
+                Id = customer.Id,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Birthday = customer.Birthday,
@@ -29,12 +30,13 @@ namespace SQL.Repositories
             _ctx.SaveChanges();
             return new Customer()
             {
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                Birthday = customer.Birthday,
-                Address = customer.Address,
-                Email = customer.Email,
-                PhoneNumber = customer.PhoneNumber
+                Id = entity.Id,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                Birthday = entity.Birthday,
+                Address = entity.Address,
+                Email = entity.Email,
+                PhoneNumber = entity.PhoneNumber
             };
         }
 
@@ -62,6 +64,7 @@ namespace SQL.Repositories
         {
             var entity = _ctx.Customers.Update(new CustomerEntity()
             {
+                Id = customerUpdate.Id,
                 FirstName = customerUpdate.FirstName,
                 LastName = customerUpdate.LastName,
                 Birthday = customerUpdate.Birthday,
@@ -72,6 +75,7 @@ namespace SQL.Repositories
             _ctx.SaveChanges();
             return new Customer()
             {
+                Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 Birthday = entity.Birthday,
@@ -83,20 +87,9 @@ namespace SQL.Repositories
 
         public Customer Delete(int id)
         {
-            var entity = _ctx.Customers.Remove(new CustomerEntity()
-            {
-                Id = id
-            }).Entity;
+            var entity = _ctx.Customers.Remove(new CustomerEntity() {Id = id}).Entity;
             _ctx.SaveChanges();
-            return new Customer()
-            {
-                FirstName = entity.FirstName,
-                LastName = entity.LastName,
-                Birthday = entity.Birthday,
-                Address = entity.Address,
-                Email = entity.Email,
-                PhoneNumber = entity.PhoneNumber
-            };
+            return new Customer() {Id = entity.Id};
         }
 
         public IEnumerable<Customer> ReadByIdIncludeVideos(int id)

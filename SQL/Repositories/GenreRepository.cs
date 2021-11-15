@@ -25,6 +25,7 @@ namespace SQL.Repositories
             _ctx.SaveChanges();
             return new Genre()
             {
+                Id = entity.Id,
                 Type = entity.Type
             };
         }
@@ -57,6 +58,7 @@ namespace SQL.Repositories
             _ctx.SaveChanges();
             return new Genre()
             {
+                Id = entity.Id,
                 Type = entity.Type
             };
         }

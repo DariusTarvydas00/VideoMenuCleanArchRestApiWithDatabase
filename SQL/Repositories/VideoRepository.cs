@@ -20,28 +20,31 @@ namespace SQL.Repositories
         {
             var entity = _ctx.Videos.Add(new VideoEntity()
             {
+                Id = video.Id,
                 Title = video.Title,
                 StoryLine = video.StoryLine,
                 ReleaseDate = video.ReleaseDate
-            });
+            }).Entity;
             _ctx.SaveChanges();
             return new Video()
             {
-                Title = video.Title,
-                StoryLine = video.StoryLine,
-                ReleaseDate = video.ReleaseDate
+                Title = entity.Title,
+                StoryLine = entity.StoryLine,
+                ReleaseDate = entity.ReleaseDate
             };
         }
 
         public Video ReadById(int id)
         {
-            return _ctx.Videos.Select(entity => new Video()
+            return _ctx.Videos
+                .Select(entity => new Video()
             {
                 Id = entity.Id,
                 Title = entity.Title,
                 ReleaseDate = entity.ReleaseDate,
                 StoryLine = entity.StoryLine
-            }).FirstOrDefault(g => g.Id == id);
+            })
+                .FirstOrDefault(g => g.Id == id);
         }
 
         public IEnumerable<Video> ReadAll(Filter filter = null)
@@ -67,6 +70,7 @@ namespace SQL.Repositories
             _ctx.SaveChanges();
             return new Video()
             {
+                Id = entity.Id,
                 Title = entity.Title,
                 ReleaseDate = entity.ReleaseDate,
                 StoryLine = entity.StoryLine
