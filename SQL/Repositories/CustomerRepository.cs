@@ -42,8 +42,16 @@ namespace SQL.Repositories
 
         public Customer ReadById(int id)
         {
-            var entity = _ctx.Customers.FirstOrDefault(customerEntity => customerEntity.Id == id);
-            return new Customer() {Id = entity.Id};
+            return _ctx.Customers.Select(entity => new Customer()
+            {
+                Id = entity.Id,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                Birthday = entity.Birthday,
+                Address = entity.Address,
+                Email = entity.Email,
+                PhoneNumber = entity.PhoneNumber
+            }).FirstOrDefault(customerEntity => customerEntity.Id == id);
         }
 
         public IEnumerable<Customer> ReadAll()
