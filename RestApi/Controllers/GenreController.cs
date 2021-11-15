@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using RestApi.DTOs.Customers;
+using RestApi.DTOs.Genres;
 using VideoMenuConsoleApp.Core.ApplicationService;
 using VideoMenuConsoleApp.Core.Entity;
 
@@ -18,48 +20,63 @@ namespace RestApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Genre>> Get()
-        {
-            return _genreService.GetAllGenre();
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<Genre> Get(int id)
+        public ActionResult<List<Genre>> Get()
         {
             try
             {
-                return Ok(_genreService.FindGenreById(id));
+                return Ok(_genreService.GetAllGenre());
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(e);
             }
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<GetGenreByIdDto> Get(int id)
+        {
+            var genreFromDto = _genreService.FindGenreById(id);
+            return Ok(new GetGenreByIdDto()
+            {
+                Type = genreFromDto.Type
+            });
         }
 
         [HttpPost]
-        public ActionResult<Genre> Post([FromBody] Genre Genre)
+        public ActionResult<PostGenreDto> Post([FromBody] PostGenreDto dto)
         {
-            if (string.IsNullOrEmpty(Genre.Type))
+            var genreDto = new Genre()
             {
-                return BadRequest("Some fields are entered incorrectly");
+                Type = dto.Type
+            };
+            try
+            {
+                var newGenre = _genreService.CreateNewGenre(genreDto);
+                return Created($"https://localhost:5001/api/videos/{newGenre.Id}", newGenre);
             }
-
-            return Ok(_genreService.CreateNewGenre(Genre));
+            catch (ArgumentException e)
+            {
+                return BadRequest(e);
+            }
         }
 
         [HttpPut]
-        public ActionResult<Genre> Put(int id, [FromBody] Genre Genre)
+        public ActionResult<PutGenreDto> Put(int id, [FromBody] PutGenreDto dto)
         {
-            if (id < 1 || id != Genre.Id)
+            if (id != dto.Id)
             {
                 return BadRequest("Something went wrong");
             }
 
-            return Ok(_genreService.UpdateGenre(Genre));
+            return Ok(_genreService.UpdateGenre(new Genre()
+            {
+                Id = dto.Id,
+                Type = dto.Type
+            }));
         }
 
         [HttpDelete]
-        public ActionResult<Genre> Delete(int id)
+        public ActionResult<GetGenreByIdDto> Delete(int id)
         {
             var Genre = _genreService.DeleteGenre(id);
             if (Genre == null)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using RestApi.DTOs.Customers;
+using RestApi.DTOs.Videos;
 using VideoMenuConsoleApp.Core.ApplicationService;
 using VideoMenuConsoleApp.Core.Entity;
 
@@ -19,49 +21,78 @@ namespace RestApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Customer>> Get()
-        {
-            return _customerService.GetAllCustomers();
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<Customer> Get(int id)
+        public ActionResult<List<Customer>> Get()
         {
             try
             {
-                return Ok(_customerService.FindCustomerByIdIncludeOrders(id));
+                return Ok(_customerService.GetAllCustomers());
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(e);
             }
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<GetCustomerByIdDto> Get(int id)
+        {
+            var videoFromDto = _customerService.FindCustomerById(id);
+            return Ok(new GetCustomerByIdDto()
+            {
+                FirstName = videoFromDto.FirstName,
+                LastName = videoFromDto.LastName,
+                Address = videoFromDto.Address,
+                Birthday = videoFromDto.Birthday,
+                Email = videoFromDto.Email,
+                PhoneNumber = videoFromDto.PhoneNumber
+            });
         }
 
         [HttpPost]
-        public ActionResult<Customer> Post([FromBody] Customer customer)
+        public ActionResult<PostVideoDto> Post([FromBody] Customer customer)
         {
-            if (string.IsNullOrEmpty(customer.FirstName) || string.IsNullOrEmpty(customer.LastName) || string.IsNullOrEmpty(customer.Address) 
-                || string.IsNullOrEmpty(customer.Email) || customer.PhoneNumber == null || customer.Birthday.Equals(null))
+            var customerDto = new Customer()
             {
-                return BadRequest("Some fields are entered incorrectly");
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Address = customer.Address,
+                Birthday = customer.Birthday,
+                Email = customer.Email,
+                PhoneNumber = customer.PhoneNumber
+            };
+            try
+            {
+                var newCustomer = _customerService.CreateCustomer(customerDto);
+                return Created($"https://localhost:5001/api/videos/{customerDto.Id}", customerDto);
             }
-
-            return Ok(_customerService.CreateCustomer(customer));
+            catch (ArgumentException e)
+            {
+                return BadRequest(e);
+            }
         }
 
         [HttpPut]
-        public ActionResult<Customer> Put(int id, [FromBody] Customer customer)
+        public ActionResult<PutVideoDto> Put(int id, [FromBody] Customer customer)
         {
-            if (id < 1 || id != customer.Id)
+            if (id != customer.Id)
             {
                 return BadRequest("Something went wrong");
             }
 
-            return Ok(_customerService.UpdateCustomer(customer));
+            return Ok(_customerService.UpdateCustomer(new Customer()
+            {
+                Id = customer.Id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Address = customer.Address,
+                Birthday = customer.Birthday,
+                Email = customer.Email,
+                PhoneNumber = customer.PhoneNumber
+            }));
         }
 
         [HttpDelete]
-        public ActionResult<Customer> Delete(int id)
+        public ActionResult<GetCustomerByIdDto> Delete(int id)
         {
             var customer = _customerService.DeleteCustomer(id);
             if (customer == null)

@@ -19,7 +19,7 @@ namespace RestApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Video>> Get([FromQuery] Filter filter)
+        public ActionResult<List<Video>> Get([FromQuery] Filter filter)
         {
             try
             {
@@ -34,49 +34,60 @@ namespace RestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Video> Get(int id)
+        public ActionResult<GetVideoByIdDto> Get(int id)
         {
             var video = _videoService.FindVideoById(id);
-            try
-            {
                 return Ok(new GetVideoByIdDto()
                 {
                     Title = video.Title,
                     StoryLine = video.StoryLine,
-                    DateTime = video.ReleaseDate
+                    ReleaseTime = video.ReleaseDate
                 });
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
         }
 
         [HttpPost]
-        public ActionResult<Video> Post([FromBody] Video video)
+        public ActionResult<PostVideoDto> Post([FromBody] PostVideoDto dto)
         {
-            if (string.IsNullOrEmpty(video.Title) || string.IsNullOrEmpty(video.StoryLine) || string.IsNullOrEmpty(video.Genre.Type) 
-                || string.IsNullOrEmpty(video.ReleaseDate.ToString()) || video.Customer == null)
+            var videoFromDto = new Video()
             {
-                return BadRequest("Some fields are entered incorrectly");
+                Title = dto.Title,
+                StoryLine = dto.StoryLine,
+                ReleaseDate = dto.ReleaseDate,
+                Genre = new Genre()
+                {
+                    Id = dto.GenreEntityId
+                }
+            };
+            try
+            {
+                var newVideo = _videoService.CreateNewVideo(videoFromDto);
+                return Created($"https://localhost:5001/api/videos/{newVideo.Id}", newVideo);
             }
-
-            return Ok(_videoService.CreateNewVideo(video));
+            catch (ArgumentException e)
+            {
+                return BadRequest(e);
+            }
         }
 
-        [HttpPut]
-        public ActionResult<Video> Put(int id, [FromBody] Video video)
+        [HttpPut("{id}")]
+        public ActionResult<PutVideoDto> Put(int id, [FromBody] PutVideoDto dto)
         {
-            if (id < 1 || id != video.Id)
+            if (id != dto.Id)
             {
-                return BadRequest("Something went wrong");
+                return BadRequest("Id on param must be the same as in object");
             }
 
-            return Ok(_videoService.UpdateVideo(video));
+            return Ok(_videoService.UpdateVideo(new Video()
+            {
+                Id = dto.Id,
+                Title = dto.Title,
+                StoryLine = dto.StoryLine,
+                ReleaseDate = dto.ReleaseDate
+            }));
         }
 
-        [HttpDelete]
-        public ActionResult<Genre> Delete(int id)
+        [HttpDelete("{id}")]
+        public ActionResult<GetVideoByIdDto> Delete(int id)
         {
             var genre = _videoService.DeleteVideo(id);
             if (genre == null)

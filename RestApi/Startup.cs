@@ -35,12 +35,16 @@ namespace RestApi
                 builder.AddConsole();
             });
             services.AddDbContext<VideoMenuDbContext>(builder => builder.UseLoggerFactory(loggerFactory).UseSqlite("Data Source=DatabaseApp.db"));
+            
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IGenreRepository, GenreRepository>();
-            services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IGenreService, GenreService>();
+            
+            services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<IVideoService, VideoService>();
+            
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IGenreService, GenreService>();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddMvc().AddNewtonsoftJson(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
