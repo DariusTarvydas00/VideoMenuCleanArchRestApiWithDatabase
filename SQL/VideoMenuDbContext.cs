@@ -13,10 +13,9 @@ namespace SQL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Video>().HasOne(video => video.Customer).WithMany(customers => customers.Videos)
-                .OnDelete(DeleteBehavior.SetNull);
-            //modelBuilder.Entity<Customer>().HasOne(video => video.Videos).WithMany();
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<VideoEntity>().HasOne(video => video.Genre).WithMany()
+                .HasForeignKey(v => new {v.GenreId}).OnDelete(DeleteBehavior.SetNull);
+            //modelBuilder.Entity<CustomerEntity>().HasMany<Video>(entity => entity.Video).WithMany(c => Customers);
             modelBuilder.Entity<CustomerEntity>().HasData(new CustomerEntity()
             {
                 Id = 1,
@@ -26,7 +25,7 @@ namespace SQL
                 Email = "asd@asd.lt",
                 Birthday = DateTime.Now.AddYears(-25),
                 PhoneNumber = 123456789,
-                VideoEntityId = 1
+                VideoId = 1
             });
             modelBuilder.Entity<CustomerEntity>().HasData(new CustomerEntity()
             {
@@ -37,7 +36,7 @@ namespace SQL
                 Email = "asd@asd.lt",
                 Birthday = DateTime.Now.AddYears(-25),
                 PhoneNumber = 123456789,
-                VideoEntityId = 2
+                VideoId = 2
             });
             modelBuilder.Entity<CustomerEntity>().HasData(new CustomerEntity()
             {
@@ -48,7 +47,7 @@ namespace SQL
                 Email = "asd@asd.lt",
                 Birthday = DateTime.Now.AddYears(-25),
                 PhoneNumber = 123456789,
-                VideoEntityId = 3
+                VideoId = 3
             });
             modelBuilder.Entity<VideoEntity>().HasData(new VideoEntity() 
             {
@@ -56,7 +55,7 @@ namespace SQL
                 Title = "Star",
                 ReleaseDate = DateTime.Now.AddYears(-10),
                 StoryLine = "Pow Pow",
-                GenreEntityId = 1
+                GenreId = 1
                 
             });
             modelBuilder.Entity<VideoEntity>().HasData(new VideoEntity() 
@@ -65,7 +64,7 @@ namespace SQL
                 Title = "Wars",
                 ReleaseDate = DateTime.Now.AddYears(-10),
                 StoryLine = "Bum Bum",
-                GenreEntityId = 2
+                GenreId = 2
                 
             });
             modelBuilder.Entity<VideoEntity>().HasData(new VideoEntity() 
@@ -74,7 +73,7 @@ namespace SQL
                 Title = "Star Wars",
                 ReleaseDate = DateTime.Now.AddYears(-10),
                 StoryLine = "Bum Bum POW POW",
-                GenreEntityId = 1
+                GenreId = 1
                 
             });
             modelBuilder.Entity<VideoEntity>().HasData(new VideoEntity() 
@@ -83,7 +82,7 @@ namespace SQL
                 Title = "Something",
                 ReleaseDate = DateTime.Now.AddYears(-10),
                 StoryLine = "Nothing",
-                GenreEntityId = 1
+                GenreId = 1
                 
             });
             modelBuilder.Entity<GenreEntity>().HasData(new GenreEntity() {Id = 1, Type = "Fantasy"});

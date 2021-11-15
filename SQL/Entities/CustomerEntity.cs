@@ -11,6 +11,7 @@ namespace SQL.Entities
         public string Email { get; set; }
         public DateTime Birthday { get; set; }
         public string Address { get; set; }
-        public int VideoEntityId { get; set; }
+        public int VideoId { get; set; }
+        public VideoEntity Video { get; set; }
     }
 }

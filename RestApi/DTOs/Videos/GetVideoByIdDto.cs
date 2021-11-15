@@ -1,4 +1,5 @@
 ﻿using System;
+using VideoMenuConsoleApp.Core.Entity;
 
 namespace RestApi.DTOs.Videos
 {
@@ -7,5 +8,6 @@ namespace RestApi.DTOs.Videos
         public string Title { get; set; }
         public string StoryLine { get; set; }
         public DateTime ReleaseTime { get; set; }
+        public Genre Genre { get; set; }
     }
 }

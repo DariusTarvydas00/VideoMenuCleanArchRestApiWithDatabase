@@ -24,7 +24,7 @@ namespace SQL.Converters
                 ReleaseDate = video.ReleaseDate,
                 StoryLine = video.StoryLine,
                 Title = video.Title,
-                GenreEntityId = video.Genre != null ? video.Genre.Id : 0
+                GenreId = video.Genre != null ? video.Genre.Id : 0
             };
         }
     }

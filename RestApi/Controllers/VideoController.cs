@@ -41,7 +41,8 @@ namespace RestApi.Controllers
                 {
                     Title = video.Title,
                     StoryLine = video.StoryLine,
-                    ReleaseTime = video.ReleaseDate
+                    ReleaseTime = video.ReleaseDate,
+                    Genre = video.Genre
                 });
         }
 

@@ -10,7 +10,8 @@ namespace SQL.Entities
         public string Title { get; set; }
         public DateTime ReleaseDate { get; set; }
         public string StoryLine { get; set; }
-        public int GenreEntityId { get; set; }
+        public int? GenreId { get; set; } // for writting
+        public GenreEntity Genre { get; set; } // for reading
 
     }
 }

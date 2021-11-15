@@ -30,7 +30,7 @@ namespace SQL.Converters
                 LastName = customer.LastName,
                 PhoneNumber = customer.PhoneNumber,
                 Birthday = customer.Birthday,
-                VideoEntityId = customer.Videos != null ? customer.Videos.Count : 0
+                VideoId = customer.Videos != null ? customer.Videos.Count : 0
             };
         }
     }

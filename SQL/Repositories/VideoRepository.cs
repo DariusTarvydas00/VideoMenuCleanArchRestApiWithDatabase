@@ -49,12 +49,18 @@ namespace SQL.Repositories
 
         public IEnumerable<Video> ReadAll(Filter filter = null)
         {
-            return _ctx.Videos.Select(entity => new Video()
+            return _ctx.Videos
+                .Select(entity => new Video()
             {
                 Id = entity.Id,
                 Title = entity.Title,
                 ReleaseDate = entity.ReleaseDate,
-                StoryLine = entity.StoryLine
+                StoryLine = entity.StoryLine,
+                Genre = entity.GenreId > 0 ? new Genre()
+                {
+                    Id = entity.Genre.Id,
+                    Type = entity.Genre.Type
+                } : null
             }).ToList();
         }
 
