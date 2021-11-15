@@ -27,9 +27,13 @@ namespace VideoMenu.Infrastructure.Data.Repositories
             return _ctx.Customers.FirstOrDefault(customer => customer.Id == id);
         }
         
-        public Customer ReadByIdIncludeVideos(int id)
+        public IEnumerable<Customer> ReadByIdIncludeVideos(int id)
         {
-            return _ctx.Customers.Where(customer => customer.Id == id).Include(customer => customer.Videos).FirstOrDefault();
+            var entity = _ctx.Customers.Where(customer => customer.Id == id).Include(customer => customer.Videos).FirstOrDefault();
+            return new List<Customer>()
+            {
+
+            };
         }
 
         public IEnumerable<Customer> ReadAll()

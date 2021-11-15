@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using SQL.Entities;
 using VideoMenuConsoleApp.Core.Entity;
 
 namespace SQL
@@ -9,7 +11,7 @@ namespace SQL
         {
                  ctx.Database.EnsureDeleted();
                                     ctx.Database.EnsureCreated();
-                                    var cust1 = ctx.Customers.Add(new Customer()
+                                    var cust1 = ctx.Customers.Add(new CustomerEntity()
                                     {
                                         FirstName = "Darius",
                                         LastName = "Tarvydas",
@@ -19,7 +21,7 @@ namespace SQL
                                         PhoneNumber = 123456789
                                     }).Entity;
                                     
-                                    var cust2 = ctx.Customers.Add(new Customer()
+                                    var cust2 = ctx.Customers.Add(new CustomerEntity()
                                     {
                                         FirstName = "sadfasdf",
                                         LastName = "asdfasdf",
@@ -29,30 +31,30 @@ namespace SQL
                                         PhoneNumber = 123456789
                                     }).Entity;
                 
-                                    var gen1 = ctx.Genres.Add(new Genre()
+                                    var gen1 = ctx.Genres.Add(new GenreEntity()
                                     {
                                         Type = "Fantasy"
                                     }).Entity;
                                     
-                                    var gen2 = ctx.Genres.Add(new Genre()
+                                    var gen2 = ctx.Genres.Add(new GenreEntity()
                                     {
                                         Type = "Comedy"
                                     }).Entity;
                 
-                                    var vid1 = ctx.Videos.Add(new Video()
+                                    var vid1 = ctx.Videos.Add(new VideoEntity()
                                     {
                                         Title = "Star",
                                         ReleaseDate = DateTime.Now.AddYears(-10),
                                         StoryLine = "adsadfasdfasdfasdfasdf",
-                                        Customer = cust1
+                                        GenreEntityId = 1
                                     }).Entity;
                                     
-                                    var vid2 = ctx.Videos.Add(new Video()
+                                    var vid2 = ctx.Videos.Add(new VideoEntity()
                                     {
                                         Title = "Wars",
                                         ReleaseDate = DateTime.Now.AddYears(-10),
                                         StoryLine = "adsadfasdfasdfasdfasdf",
-                                        Customer = cust2
+                                        GenreEntityId = 2
                                     }).Entity;
                 
                                     ctx.SaveChanges();

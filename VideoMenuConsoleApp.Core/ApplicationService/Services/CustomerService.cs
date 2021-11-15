@@ -38,14 +38,7 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
 
         public Customer UpdateCustomer(Customer customerUpdate)
         {
-            var customer = FindCustomerById(customerUpdate.Id);
-            customer.FirstName = customerUpdate.FirstName;
-            customer.LastName = customerUpdate.LastName;
-            customer.Birthday = customerUpdate.Birthday;
-            customer.Email = customerUpdate.Email;
-            customer.PhoneNumber = customerUpdate.PhoneNumber;
-            customer.Address = customerUpdate.Address;
-            return customer;
+            return _customerRepo.Update(customerUpdate);
         }
 
         public Customer DeleteCustomer(int id)
@@ -71,9 +64,9 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
             return queryContinued.ToList();
         }
 
-        public Customer FindCustomerByIdIncludeOrders(int id)
+        public List<Customer> FindCustomerByIdIncludeOrders(int id)
         {
-            return  _customerRepo.ReadByIdIncludeVideos(id);
+            return  _customerRepo.ReadByIdIncludeVideos(id).ToList();
         }
     }
 }

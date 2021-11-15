@@ -47,12 +47,7 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
 
         public Video UpdateVideo(Video videoUpdate)
         {
-            var video = FindVideoById(videoUpdate.Id);
-            video.Title = videoUpdate.Title;
-            video.Genre = videoUpdate.Genre;
-            video.ReleaseDate = videoUpdate.ReleaseDate;
-            video.StoryLine = videoUpdate.StoryLine;
-            return video;
+            return _videoRepository.Update(videoUpdate);
         }
 
         public Video DeleteVideo(int id)
@@ -84,7 +79,7 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
             {
                 throw new InvalidDataException("C and I zero");
             }
-
+            
             if ((filter.CurrentPage - 1 * filter.ItemsPerPage) >= _videoRepository.Count())
             {
                 throw new InvalidDataException("index bound");

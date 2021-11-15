@@ -23,16 +23,14 @@ namespace VideoMenuConsoleApp.Core.ApplicationService.Services
             return genre;
         }
 
-        public Genre CreateNewGenre(Genre video)
+        public Genre CreateNewGenre(Genre genre)
         {
-            return _genreRepository.Create(video);
+            return _genreRepository.Create(genre);
         }
 
-        public Genre UpdateGenre(Genre videoUpdate)
+        public Genre UpdateGenre(Genre genreUpdate)
         {
-            var genre = FindGenreById(videoUpdate.Id);
-            genre.Type = videoUpdate.Type;
-            return genre;
+            return _genreRepository.Update(genreUpdate);
         }
 
         public Genre DeleteGenre(int id)

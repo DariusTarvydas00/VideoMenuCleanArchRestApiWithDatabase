@@ -16,6 +16,6 @@ namespace VideoMenuConsoleApp.Core.ApplicationService
         Customer FindCustomerById(int id);
         List<Customer> GetAllCustomers();
         List<Customer> GetAllByFirstName(string name);
-        Customer FindCustomerByIdIncludeOrders(int id);
+        List<Customer> FindCustomerByIdIncludeOrders(int id);
     }
 }

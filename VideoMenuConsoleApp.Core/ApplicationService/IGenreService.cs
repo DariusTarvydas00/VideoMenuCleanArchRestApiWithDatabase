@@ -6,8 +6,8 @@ namespace VideoMenuConsoleApp.Core.ApplicationService
     public interface IGenreService
     {
         Genre NewGenre(string title);
-        Genre CreateNewGenre(Genre video);
-        Genre UpdateGenre(Genre videoUpdate);
+        Genre CreateNewGenre(Genre genre);
+        Genre UpdateGenre(Genre genreUpdate);
         Genre DeleteGenre(int id);
         Genre FindGenreById(int id);
         List<Genre> GetAllGenre();

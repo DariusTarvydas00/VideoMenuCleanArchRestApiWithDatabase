@@ -12,7 +12,5 @@ namespace SQL.Entities
         public string StoryLine { get; set; }
         public int GenreEntityId { get; set; }
 
-        public ICollection<Customer> Customers { get; set; }
-
     }
 }
